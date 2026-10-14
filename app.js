@@ -28,6 +28,7 @@ let lastBarKey = "";
 let lastAlertKey = "";
 let pendingConfirm = null;
 let holdTimer = null;
+let eventFeed = { checkedAt: null, sources: [], events: [] };
 
 const $ = id => document.getElementById(id);
 const $$ = selector => [...document.querySelectorAll(selector)];
@@ -91,6 +92,14 @@ function localClock(date) {
   return { time, zone:zone.split("/").pop().replaceAll("_"," ").toUpperCase(), offset:`UTC${sign}${Math.floor(Math.abs(offset)/60)}${offset%60?":"+pad(Math.abs(offset)%60):""}` };
 }
 function setText(id, value) { const el=$(id); if(el) el.textContent=value; }
+function sameNyDay(date, p) { const x=nyParts(date); return x.year===p.year&&x.month===p.month&&x.day===p.day; }
+function formatEventDistance(ms) { const seconds=Math.max(0,Math.floor(ms/1000));if(seconds<3600)return `${Math.floor(seconds/60)}:${pad(seconds%60)}`;return `${Math.floor(seconds/3600)}h ${pad(Math.floor((seconds%3600)/60))}m`; }
+function renderEvents(p, now) {
+  const list=$("eventsList"); if(!list)return; const valid=eventFeed.events.map(event=>({...event,date:new Date(event.startsAt)})).filter(event=>!Number.isNaN(event.date.getTime())); const today=valid.filter(event=>sameNyDay(event.date,p)); const upcoming=valid.find(event=>event.date.getTime()>=now.getTime()-5*60000);
+  if(today.length){list.innerHTML=today.map(event=>{const delta=event.date.getTime()-now.getTime(),window=Math.abs(delta)<=5*60000;const time=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(event.date);return `<a class="event-row ${window?'news-window':''}" href="${event.url}" target="_blank" rel="noopener"><time>${time} ET</time><i class="event-dot ${event.impact}"></i><div><strong>${event.titleZh||event.title}</strong><small>${event.source}${window?' · NEWS WINDOW':''}</small></div><span class="impact-tag ${event.impact}">${event.impact.toUpperCase()}</span></a>`}).join("")}else list.innerHTML='<div class="events-empty">今天没有已收录的重要事件</div>';
+  if(upcoming){const delta=upcoming.date.getTime()-now.getTime();setText("nextEventCountdown",delta<=0?"NOW":formatEventDistance(delta));setText("focusEvent",`${upcoming.titleZh||upcoming.title} · ${delta<=0?'NOW':'IN '+formatEventDistance(delta)}`);$("focusEvent").classList.toggle("critical",upcoming.impact==="critical"&&delta<=30*60000)}else{setText("nextEventCountdown","—");setText("focusEvent","NO UPCOMING HIGH-IMPACT EVENT")}
+  const checked=eventFeed.checkedAt?new Date(eventFeed.checkedAt):null;setText("eventsFreshness",checked&&!Number.isNaN(checked)?`官方日历检查于 ${checked.toLocaleDateString('zh-CN')} · ${eventFeed.events.length} 条事件`:"官方日历暂不可用");
+}
 
 function render(now = new Date()) {
   const p=nyParts(now); ensureTradingDay(p); const schedule=scheduleFor(p); const info=sessionInfo(p, now.getTime()); const entry=entryStatus(info, now.getTime()); const bar=barInfo(p,schedule); const local=localClock(now);
@@ -102,7 +111,7 @@ function render(now = new Date()) {
   $$("[data-open-side]").forEach(b=>{b.disabled=false;b.classList.toggle("blocked",!entry.allowed);b.title=entry.allowed?"记录开仓":entry.reason}); setText("entryAvailability",entry.allowed?"交易窗口开放 · 可手动记录":entry.reason); setText("journalAvailability",entry.allowed?"确认交易计划后，手动记录方向。":"点击方向按钮可查看锁定原因。 "+entry.reason);
   setText("tradeCount",state.trades.length); const total=tradeTotal(); setText("totalR",formatR(total)); setText("lossStreak",lossStreak()); setText("cooldown",state.cooldownUntil>now.getTime()?formatDuration((state.cooldownUntil-now.getTime())/1000):"READY");
   $("totalR").style.color=total<0?"var(--red)":total>0?"var(--green)":"var(--text)";
-  renderPosition(now); renderFocus(p,info,bar,now); renderHistory(); renderCalendar(p);
+  renderPosition(now); renderFocus(p,info,bar,now); renderHistory(); renderCalendar(p); renderEvents(p,now);
   setText("journalDate",new Intl.DateTimeFormat("zh-CN",{timeZone:"America/New_York",year:"numeric",month:"long",day:"numeric",weekday:"long"}).format(now));
   document.title=`${formatDuration(bar.left)} · ${info.title} · MES`;
   const barKey=`${state.interval}-${dayKey(p)}-${p.hour}-${Math.floor(p.minute/state.interval)}`;
@@ -154,5 +163,6 @@ function bindEvents(){
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});
 }
 function syncSettings(){$("soundToggle").checked=state.sound;$("positionAlertToggle").checked=state.positionAlert;$("positionAlertMinutes").value=state.positionAlertMinutes;$("soundButton").classList.toggle("active",state.sound);setText("soundIcon",state.sound?"♫":"♪");$$('#intervalPicker button').forEach(x=>x.classList.toggle('active',+x.dataset.interval===state.interval))}
-function init(){bindEvents();syncSettings();render();setInterval(()=>render(),1000);if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+async function loadEventFeed(){try{const response=await fetch(`./data/events.json?v=${Date.now()}`,{cache:"no-store"});if(!response.ok)throw new Error();const data=await response.json();if(!Array.isArray(data.events))throw new Error();eventFeed=data;render()}catch{setText("eventsFreshness","官方日历读取失败 · 显示本地缓存")}}
+function init(){bindEvents();syncSettings();render();loadEventFeed();setInterval(()=>render(),1000);if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
 init();

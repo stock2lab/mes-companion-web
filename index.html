@@ -70,6 +70,15 @@
             <div class="next-marker"><span>NEXT</span><b id="nextMarker">—</b></div>
           </article>
 
+          <article class="events-card card">
+            <div class="events-head">
+              <div><p class="eyebrow">ECONOMIC RADAR</p><h3>今日重要事件</h3></div>
+              <div class="event-next"><span>NEXT EVENT</span><b id="nextEventCountdown">—</b></div>
+            </div>
+            <div class="events-list" id="eventsList"><div class="events-empty">正在读取官方日历…</div></div>
+            <div class="events-foot"><span id="eventsFreshness">日历载入中</span><span>仅作事件提醒，不构成交易信号</span></div>
+          </article>
+
           <article class="position-card card" id="positionCard">
             <div class="position-head"><p class="eyebrow">OPEN POSITION</p><button class="text-button" id="openJournalButton" type="button">管理交易 →</button></div>
             <div class="position-empty" id="positionEmpty">
@@ -105,6 +114,7 @@
             <div class="focus-progress"><i id="focusProgress"></i></div>
             <h2 id="focusMessage">正在校准</h2>
           </div>
+          <div class="focus-event" id="focusEvent">NO HIGH-IMPACT EVENT TODAY</div>
           <div class="focus-position" id="focusPosition">NO OPEN POSITION</div>
           <button class="focus-exit" id="focusExit" type="button">退出极简模式</button>
         </div>
@@ -161,7 +171,7 @@
             <div class="settings-actions"><button class="secondary-button" id="exportSettingsButton">导出 JSON</button><label class="secondary-button file-button">导入 JSON<input type="file" id="importInput" accept="application/json"></label></div>
           </article>
           <article class="settings-card card about-card">
-            <h2>关于</h2><p>MES Companion Web <b>v0.1.0</b></p><p class="muted">只提供时间、记录和纪律提醒，不连接交易账户，不发送订单，也不提供交易信号。</p><p class="calendar-freshness">预置 2026–2027 节假日规则；CME 可能临近日期调整，使用前请以官方安排为准。</p>
+            <h2>关于</h2><p>MES Companion Web <b>v0.2.0</b></p><p class="muted">只提供时间、记录和纪律提醒，不连接交易账户，不发送订单，也不提供交易信号。</p><p class="calendar-freshness">GitHub Actions 每日尝试读取 BLS 并抓取 BEA 官方日历；BLS 与 FOMC 均设有可审计、经官方日历核验的后备表。</p><p class="calendar-freshness">预置 2026–2027 节假日规则；CME 可能临近日期调整，使用前请以官方安排为准。</p>
           </article>
         </div>
       </section>

@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-14T15:37:38.827Z",
+  "timeZone": "America/New_York",
+  "sources": [
+    {
+      "name": "BLS",
+      "status": "error",
+      "url": "https://www.bls.gov/schedule/news_release/bls.ics",
+      "error": "403 Forbidden"
+    },
+    {
+      "name": "BEA",
+      "status": "ok",
+      "count": 9,
+      "url": "https://www.bea.gov/news/schedule"
+    },
+    {
+      "name": "BLS fallback",
+      "status": "manual-fallback",
+      "count": 14,
+      "url": "https://www.bls.gov/schedule/2026/10_sched_list.htm"
+    },
+    {
+      "name": "Federal Reserve",
+      "status": "manual-fallback",
+      "count": 4,
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+    }
+  ],
+  "events": [
+    {
+      "startsAt": "2026-10-14T08:30:00-04:00",
+      "title": "CPI",
+      "titleZh": "消费者价格指数 CPI",
+      "impact": "critical",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2026/10_sched_list.htm",
+      "id": "2026-10-14t08:30:00-04:00|cpi|bls-fallback"
+    },
+    {
+      "startsAt": "2026-10-15T08:30:00-04:00",
+      "title": "PPI",
+      "titleZh": "生产者价格指数 PPI",
+      "impact": "high",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2026/10_sched_list.htm",
+      "id": "2026-10-15t08:30:00-04:00|ppi|bls-fallback"
+    },
+    {
+      "startsAt": "2026-10-16T08:30:00-04:00",
+      "title": "Import/Export Prices",
+      "titleZh": "进出口价格指数",
+      "impact": "medium",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2026/10_sched_list.htm",
+      "id": "2026-10-16t08:30:00-04:00|import-export-prices|bls-fallback"
+    },
+    {
+      "startsAt": "2026-10-28T14:00:00-04:00",
+      "title": "FOMC Rate Decision",
+      "titleZh": "FOMC 利率决议",
+      "impact": "critical",
+      "source": "Federal Reserve",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "id": "2026-10-28t14:00:00-04:00|fomc-rate-decision|federal-reserve"
+    },
+    {
+      "startsAt": "2026-10-28T14:30:00-04:00",
+      "title": "FOMC Press Conference",
+      "titleZh": "FOMC 新闻发布会",
+      "impact": "critical",
+      "source": "Federal Reserve",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "id": "2026-10-28t14:30:00-04:00|fomc-press-conference|federal-reserve"
+    },
+    {
+      "startsAt": "2026-10-29T08:30:00-04:00",
+      "title": "GDP",
+      "titleZh": "国内生产总值 GDP",
+      "impact": "critical",
+      "source": "BEA",
+      "url": "https://www.bea.gov/news/schedule",
+      "id": "2026-10-29t08:30:00-04:00|gdp|bea"
+    },
+    {
+      "startsAt": "2026-10-29T08:30:00-04:00",
+      "title": "Personal Income & Outlays",
+      "titleZh": "个人收入与支出 / PCE",
+      "impact": "critical",
+      "source": "BEA",
+      "url": "https://www.bea.gov/news/schedule",
+      "id": "2026-10-29t08:30:00-04:00|personal-income-outlays|bea"
+    },
+    {
+      "startsAt": "2026-10-30T08:30:00-04:00",
+      "title": "Employment Cost Index",
+      "titleZh": "就业成本指数 ECI",
+      "impact": "high",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2026/10_sched_list.htm",
+      "id": "2026-10-30t08:30:00-04:00|employment-cost-index|bls-fallback"
+    },
+    {
+      "startsAt": "2026-11-03T10:00:00-05:00",
+      "title": "JOLTS",
+      "titleZh": "JOLTS 职位空缺",
+      "impact": "high",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2026/11_sched_list.htm",
+      "id": "2026-11-03t10:00:00-05:00|jolts|bls-fallback"
+    },
+    {
+      "startsAt": "2026-11-04T08:30:00-05:00",
+      "title": "International Trade",
+      "titleZh": "国际贸易",
+      "impact": "medium",
+      "source": "BEA",
+      "url": "https://www.bea.gov/news/schedule",
+      "id": "2026-11-04t08:30:00-05:00|international-trade|bea"
+    },
+    {
+      "startsAt": "2026-11-06T08:30:00-05:00",
+      "title": "Employment Situation",
+      "titleZh": "非农就业报告",
+      "impact": "critical",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2026/11_sched_list.htm",
+      "id": "2026-11-06t08:30:00-05:00|employment-situation|bls-fallback"
+    },
+    {
+      "startsAt": "2026-11-10T08:30:00-05:00",
+      "title": "CPI",
+      "titleZh": "消费者价格指数 CPI",
+      "impact": "critical",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2026/11_sched_list.htm",
+      "id": "2026-11-10t08:30:00-05:00|cpi|bls-fallback"
+    },
+    {
+      "startsAt": "2026-11-13T08:30:00-05:00",
+      "title": "PPI",
+      "titleZh": "生产者价格指数 PPI",
+      "impact": "high",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2026/11_sched_list.htm",
+      "id": "2026-11-13t08:30:00-05:00|ppi|bls-fallback"
+    },
+    {
+      "startsAt": "2026-11-25T08:30:00-05:00",
+      "title": "GDP",
+      "titleZh": "国内生产总值 GDP",
+      "impact": "critical",
+      "source": "BEA",
+      "url": "https://www.bea.gov/news/schedule",
+      "id": "2026-11-25t08:30:00-05:00|gdp|bea"
+    },
+    {
+      "startsAt": "2026-11-25T08:30:00-05:00",
+      "title": "Personal Income & Outlays",
+      "titleZh": "个人收入与支出 / PCE",
+      "impact": "critical",
+      "source": "BEA",
+      "url": "https://www.bea.gov/news/schedule",
+      "id": "2026-11-25t08:30:00-05:00|personal-income-outlays|bea"
+    },
+    {
+      "startsAt": "2026-12-01T10:00:00-05:00",
+      "title": "JOLTS",
+      "titleZh": "JOLTS 职位空缺",
+      "impact": "high",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2026/12_sched_list.htm",
+      "id": "2026-12-01t10:00:00-05:00|jolts|bls-fallback"
+    },
+    {
+      "startsAt": "2026-12-02T08:30:00-05:00",
+      "title": "GDP",
+      "titleZh": "国内生产总值 GDP",
+      "impact": "critical",
+      "source": "BEA",
+      "url": "https://www.bea.gov/news/schedule",
+      "id": "2026-12-02t08:30:00-05:00|gdp|bea"
+    },
+    {
+      "startsAt": "2026-12-04T08:30:00-05:00",
+      "title": "Employment Situation",
+      "titleZh": "非农就业报告",
+      "impact": "critical",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2026/12_sched_list.htm",
+      "id": "2026-12-04t08:30:00-05:00|employment-situation|bls-fallback"
+    },
+    {
+      "startsAt": "2026-12-08T08:30:00-05:00",
+      "title": "International Trade",
+      "titleZh": "国际贸易",
+      "impact": "medium",
+      "source": "BEA",
+      "url": "https://www.bea.gov/news/schedule",
+      "id": "2026-12-08t08:30:00-05:00|international-trade|bea"
+    },
+    {
+      "startsAt": "2026-12-09T14:00:00-05:00",
+      "title": "FOMC Rate Decision & Projections",
+      "titleZh": "FOMC 利率决议与经济预测",
+      "impact": "critical",
+      "source": "Federal Reserve",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "id": "2026-12-09t14:00:00-05:00|fomc-rate-decision-projections|federal-reserve"
+    },
+    {
+      "startsAt": "2026-12-09T14:30:00-05:00",
+      "title": "FOMC Press Conference",
+      "titleZh": "FOMC 新闻发布会",
+      "impact": "critical",
+      "source": "Federal Reserve",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "id": "2026-12-09t14:30:00-05:00|fomc-press-conference|federal-reserve"
+    },
+    {
+      "startsAt": "2026-12-10T08:30:00-05:00",
+      "title": "CPI",
+      "titleZh": "消费者价格指数 CPI",
+      "impact": "critical",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2026/12_sched_list.htm",
+      "id": "2026-12-10t08:30:00-05:00|cpi|bls-fallback"
+    },
+    {
+      "startsAt": "2026-12-15T08:30:00-05:00",
+      "title": "PPI",
+      "titleZh": "生产者价格指数 PPI",
+      "impact": "high",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2026/12_sched_list.htm",
+      "id": "2026-12-15t08:30:00-05:00|ppi|bls-fallback"
+    },
+    {
+      "startsAt": "2026-12-23T08:30:00-05:00",
+      "title": "GDP",
+      "titleZh": "国内生产总值 GDP",
+      "impact": "critical",
+      "source": "BEA",
+      "url": "https://www.bea.gov/news/schedule",
+      "id": "2026-12-23t08:30:00-05:00|gdp|bea"
+    },
+    {
+      "startsAt": "2026-12-23T08:30:00-05:00",
+      "title": "Personal Income & Outlays",
+      "titleZh": "个人收入与支出 / PCE",
+      "impact": "critical",
+      "source": "BEA",
+      "url": "https://www.bea.gov/news/schedule",
+      "id": "2026-12-23t08:30:00-05:00|personal-income-outlays|bea"
+    },
+    {
+      "startsAt": "2027-01-08T08:30:00-05:00",
+      "title": "Employment Situation",
+      "titleZh": "非农就业报告",
+      "impact": "critical",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2027/01_sched_list.htm",
+      "id": "2027-01-08t08:30:00-05:00|employment-situation|bls-fallback"
+    },
+    {
+      "startsAt": "2027-01-13T08:30:00-05:00",
+      "title": "CPI",
+      "titleZh": "消费者价格指数 CPI",
+      "impact": "critical",
+      "source": "BLS fallback",
+      "url": "https://www.bls.gov/schedule/2027/01_sched_list.htm",
+      "id": "2027-01-13t08:30:00-05:00|cpi|bls-fallback"
+    }
+  ]
+}

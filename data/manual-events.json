@@ -1,0 +1,48 @@
+[
+  {"startsAt":"2026-10-14T08:30:00-04:00","title":"CPI","titleZh":"消费者价格指数 CPI","impact":"critical","source":"BLS fallback","url":"https://www.bls.gov/schedule/2026/10_sched_list.htm"},
+  {"startsAt":"2026-10-15T08:30:00-04:00","title":"PPI","titleZh":"生产者价格指数 PPI","impact":"high","source":"BLS fallback","url":"https://www.bls.gov/schedule/2026/10_sched_list.htm"},
+  {"startsAt":"2026-10-16T08:30:00-04:00","title":"Import/Export Prices","titleZh":"进出口价格指数","impact":"medium","source":"BLS fallback","url":"https://www.bls.gov/schedule/2026/10_sched_list.htm"},
+  {"startsAt":"2026-10-30T08:30:00-04:00","title":"Employment Cost Index","titleZh":"就业成本指数 ECI","impact":"high","source":"BLS fallback","url":"https://www.bls.gov/schedule/2026/10_sched_list.htm"},
+  {"startsAt":"2026-11-03T10:00:00-05:00","title":"JOLTS","titleZh":"JOLTS 职位空缺","impact":"high","source":"BLS fallback","url":"https://www.bls.gov/schedule/2026/11_sched_list.htm"},
+  {"startsAt":"2026-11-06T08:30:00-05:00","title":"Employment Situation","titleZh":"非农就业报告","impact":"critical","source":"BLS fallback","url":"https://www.bls.gov/schedule/2026/11_sched_list.htm"},
+  {"startsAt":"2026-11-10T08:30:00-05:00","title":"CPI","titleZh":"消费者价格指数 CPI","impact":"critical","source":"BLS fallback","url":"https://www.bls.gov/schedule/2026/11_sched_list.htm"},
+  {"startsAt":"2026-11-13T08:30:00-05:00","title":"PPI","titleZh":"生产者价格指数 PPI","impact":"high","source":"BLS fallback","url":"https://www.bls.gov/schedule/2026/11_sched_list.htm"},
+  {"startsAt":"2026-12-01T10:00:00-05:00","title":"JOLTS","titleZh":"JOLTS 职位空缺","impact":"high","source":"BLS fallback","url":"https://www.bls.gov/schedule/2026/12_sched_list.htm"},
+  {"startsAt":"2026-12-04T08:30:00-05:00","title":"Employment Situation","titleZh":"非农就业报告","impact":"critical","source":"BLS fallback","url":"https://www.bls.gov/schedule/2026/12_sched_list.htm"},
+  {"startsAt":"2026-12-10T08:30:00-05:00","title":"CPI","titleZh":"消费者价格指数 CPI","impact":"critical","source":"BLS fallback","url":"https://www.bls.gov/schedule/2026/12_sched_list.htm"},
+  {"startsAt":"2026-12-15T08:30:00-05:00","title":"PPI","titleZh":"生产者价格指数 PPI","impact":"high","source":"BLS fallback","url":"https://www.bls.gov/schedule/2026/12_sched_list.htm"},
+  {"startsAt":"2027-01-08T08:30:00-05:00","title":"Employment Situation","titleZh":"非农就业报告","impact":"critical","source":"BLS fallback","url":"https://www.bls.gov/schedule/2027/01_sched_list.htm"},
+  {"startsAt":"2027-01-13T08:30:00-05:00","title":"CPI","titleZh":"消费者价格指数 CPI","impact":"critical","source":"BLS fallback","url":"https://www.bls.gov/schedule/2027/01_sched_list.htm"},
+  {
+    "startsAt": "2026-10-28T14:00:00-04:00",
+    "title": "FOMC Rate Decision",
+    "titleZh": "FOMC 利率决议",
+    "impact": "critical",
+    "source": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+  },
+  {
+    "startsAt": "2026-10-28T14:30:00-04:00",
+    "title": "FOMC Press Conference",
+    "titleZh": "FOMC 新闻发布会",
+    "impact": "critical",
+    "source": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+  },
+  {
+    "startsAt": "2026-12-09T14:00:00-05:00",
+    "title": "FOMC Rate Decision & Projections",
+    "titleZh": "FOMC 利率决议与经济预测",
+    "impact": "critical",
+    "source": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+  },
+  {
+    "startsAt": "2026-12-09T14:30:00-05:00",
+    "title": "FOMC Press Conference",
+    "titleZh": "FOMC 新闻发布会",
+    "impact": "critical",
+    "source": "Federal Reserve",
+    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+  }
+]
