@@ -120,6 +120,35 @@
         </div>
       </section>
 
+      <section class="view" id="premarketView" data-view="premarket">
+        <div class="page-heading premarket-heading">
+          <div><p class="eyebrow">PRE-MARKET ROUTINE</p><h1>盘前准备</h1><p id="premarketDate">—</p></div>
+          <div class="premarket-clock"><span id="premarketWindowLabel">准备窗口</span><strong id="premarketCountdown">—</strong></div>
+        </div>
+        <div class="premarket-layout">
+          <article class="premarket-intro card">
+            <p class="eyebrow">BEFORE THE BELL</p><h2 id="premarketTitle">先准备，再交易</h2>
+            <p id="premarketMessage">盘前 90 分钟开始整理自己、信息和计划。</p>
+            <div class="yesterday-summary"><span>上个记录日</span><strong id="previousTradeCount">暂无记录</strong><small id="previousTradeResult">今天从干净的计划开始</small></div>
+            <p class="paper-note">拿出纸和笔。这里负责提醒，你的观察、错误和计划写在纸上，不上传。</p>
+          </article>
+          <article class="checklist-card card">
+            <div class="checklist-head"><div><p class="eyebrow">MANDATORY CHECKLIST</p><h2>开盘前必做</h2></div><strong id="premarketProgress">0 / 6</strong></div>
+            <div class="checklist-progress"><i id="premarketProgressBar"></i></div>
+            <div class="premarket-checklist" id="premarketChecklist">
+              <label><input type="checkbox" data-prep="review"><span><b>复盘上个交易日</b><small>在纸上写：做对一件、做错一件、今天绝不重复的一件。</small></span></label>
+              <label><input type="checkbox" data-prep="events"><span><b>检查今日重要事件</b><small id="premarketEventsHint">确认 CPI、非农、FOMC 等公布时间，并圈出禁止交易窗口。</small></span></label>
+              <label><input type="checkbox" data-prep="levels"><span><b>标出关键位置</b><small>在图表或纸上标出隔夜高低、昨日高低和真正关心的价格区间。</small></span></label>
+              <label><input type="checkbox" data-prep="scenarios"><span><b>写出两种情景</b><small>如果向上怎么办、如果向下怎么办；没有条件满足就不做。</small></span></label>
+              <label><input type="checkbox" data-prep="risk"><span><b>确认今日风险边界</b><small>最多 5 笔、最多亏损 −2R；先确定单笔风险，不能盘中临时放大。</small></span></label>
+              <label><input type="checkbox" data-prep="state"><span><b>检查自己与设备</b><small>睡眠、情绪、网络、行情和下单工具正常；不舒服就降低频率或休息。</small></span></label>
+            </div>
+            <div class="checklist-complete hidden" id="premarketComplete">准备完成。开盘后只执行纸上已经写明的计划。</div>
+          </article>
+          <article class="premarket-rule card"><span>开盘前最后一句</span><strong>错过可以，乱做不行。</strong><small>盘前清单不是交易信号，也不是必须开仓的理由。</small></article>
+        </div>
+      </section>
+
       <section class="view" id="journalView" data-view="journal">
         <div class="page-heading"><div><p class="eyebrow">TRADING JOURNAL</p><h1>今日交易</h1><p id="journalDate">—</p></div><button class="secondary-button" id="exportButton" type="button">导出数据</button></div>
         <div class="journal-layout">
@@ -171,7 +200,7 @@
             <div class="settings-actions"><button class="secondary-button" id="exportSettingsButton">导出 JSON</button><label class="secondary-button file-button">导入 JSON<input type="file" id="importInput" accept="application/json"></label></div>
           </article>
           <article class="settings-card card about-card">
-            <h2>关于</h2><p>MES Companion Web <b>v0.2.0</b></p><p class="muted">只提供时间、记录和纪律提醒，不连接交易账户，不发送订单，也不提供交易信号。</p><p class="calendar-freshness">GitHub Actions 每日尝试读取 BLS 并抓取 BEA 官方日历；BLS 与 FOMC 均设有可审计、经官方日历核验的后备表。</p><p class="calendar-freshness">预置 2026–2027 节假日规则；CME 可能临近日期调整，使用前请以官方安排为准。</p>
+            <h2>关于</h2><p>MES Companion Web <b>v0.3.0</b></p><p class="muted">只提供时间、记录和纪律提醒，不连接交易账户，不发送订单，也不提供交易信号。</p><p class="calendar-freshness">GitHub Actions 每日尝试读取 BLS 并抓取 BEA 官方日历；BLS 与 FOMC 均设有可审计、经官方日历核验的后备表。</p><p class="calendar-freshness">预置 2026–2027 节假日规则；CME 可能临近日期调整，使用前请以官方安排为准。</p>
           </article>
         </div>
       </section>
@@ -179,6 +208,7 @@
 
     <nav class="bottom-nav" aria-label="主导航">
       <button class="active" data-nav="dashboard"><span>◫</span><b>总览</b></button>
+      <button data-nav="premarket"><span>✓</span><b>盘前</b></button>
       <button data-nav="focus"><span>◎</span><b>极简</b></button>
       <button data-nav="journal"><span>≡</span><b>交易</b></button>
       <button data-nav="settings"><span>⌁</span><b>设置</b></button>

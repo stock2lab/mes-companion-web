@@ -1,7 +1,7 @@
 "use strict";
 
 const STORAGE_KEY = "mes-companion-web-v1";
-const VERSION = 1;
+const VERSION = 2;
 const MAX_TRADES = 5;
 const LOSS_LIMIT_HALF_R = -4;
 const INTERVALS = [1, 3, 5, 15];
@@ -21,7 +21,7 @@ const HOLIDAYS = {
   "2027-12-24": ["closed", 0, "圣诞节假期"]
 };
 
-const defaults = { version: VERSION, interval: 5, sound: false, positionAlert: true, positionAlertMinutes: 30, day: "", trades: [], openPosition: null, cooldownUntil: 0, oneTradeOverride: false };
+const defaults = { version: VERSION, interval: 5, sound: false, positionAlert: true, positionAlertMinutes: 30, day: "", trades: [], openPosition: null, cooldownUntil: 0, oneTradeOverride: false, previousDay: null, prepDay: "", prepChecks: {} };
 let state = loadState();
 let customHalfR = 5;
 let lastBarKey = "";
@@ -58,7 +58,11 @@ function tradeTotal() { return state.trades.reduce((sum, t) => sum + t.halfR, 0)
 function lossStreak() { let n=0; for (let i=state.trades.length-1;i>=0&&state.trades[i].halfR<0;i--) n++; return n; }
 function ensureTradingDay(p) {
   const key = dayKey(p);
-  if (state.day !== key) { state = { ...state, day:key, trades:[], openPosition:null, cooldownUntil:0, oneTradeOverride:false }; saveState(); }
+  if (state.day !== key) {
+    const previousDay=state.day&&state.trades.length?{day:state.day,count:state.trades.length,halfR:tradeTotal()}:state.previousDay;
+    state = { ...state, day:key, trades:[], openPosition:null, cooldownUntil:0, oneTradeOverride:false, previousDay, prepDay:key, prepChecks:{} }; saveState();
+  }
+  if(state.prepDay!==key){state.prepDay=key;state.prepChecks={};saveState()}
 }
 function sessionInfo(p, nowMs = Date.now()) {
   const schedule = scheduleFor(p); const minutes = p.hour * 60 + p.minute;
@@ -101,6 +105,25 @@ function renderEvents(p, now) {
   const checked=eventFeed.checkedAt?new Date(eventFeed.checkedAt):null;setText("eventsFreshness",checked&&!Number.isNaN(checked)?`官方日历检查于 ${checked.toLocaleDateString('zh-CN')} · ${eventFeed.events.length} 条事件`:"官方日历暂不可用");
 }
 
+function renderPremarket(p, now) {
+  const minutes=p.hour*60+p.minute, seconds=minutes*60+p.second, openSeconds=570*60;
+  const inWindow=minutes>=480&&minutes<570;
+  setText("premarketDate",new Intl.DateTimeFormat("zh-CN",{timeZone:"America/New_York",year:"numeric",month:"long",day:"numeric",weekday:"long"}).format(now));
+  setText("premarketWindowLabel",inWindow?"距离开盘":"盘前窗口 08:00–09:30 ET");
+  setText("premarketCountdown",inWindow?formatDuration(openSeconds-seconds):minutes<480?"08:00 ET 开始":"今日窗口已结束");
+  setText("premarketTitle",inWindow?"先准备，再交易":minutes<480?"盘前清单尚未开始":"盘前清单仍可回看");
+  setText("premarketMessage",inWindow?"现在是盘前 90 分钟准备窗口。完成清单不代表必须交易。":minutes<480?"纽约时间 08:00 自动进入准备窗口，你也可以现在提前完成。":"如果今天已经交易，只复盘流程，不补写交易理由。");
+  const prev=state.previousDay;
+  setText("previousTradeCount",prev?`${prev.count} 笔交易`:"暂无记录");
+  setText("previousTradeResult",prev?`${prev.day} · ${formatR(prev.halfR)} · 请在纸上写下最重要的教训`:"今天从干净的计划开始");
+  const today=eventFeed.events.map(event=>({...event,date:new Date(event.startsAt)})).filter(event=>!Number.isNaN(event.date.getTime())&&sameNyDay(event.date,p));
+  setText("premarketEventsHint",today.length?`今天已收录 ${today.length} 个重要事件；逐个确认公布时间，并圈出禁止交易窗口。`:"今天没有已收录的重要事件；仍需确认临时讲话与突发安排。");
+  $$('[data-prep]').forEach(box=>box.checked=!!state.prepChecks[box.dataset.prep]);
+  const done=Object.values(state.prepChecks).filter(Boolean).length,total=$$('[data-prep]').length;
+  setText("premarketProgress",`${done} / ${total}`);$("premarketProgressBar").style.width=`${total?done/total*100:0}%`;
+  $("premarketComplete").classList.toggle("hidden",done!==total);
+}
+
 function render(now = new Date()) {
   const p=nyParts(now); ensureTradingDay(p); const schedule=scheduleFor(p); const info=sessionInfo(p, now.getTime()); const entry=entryStatus(info, now.getTime()); const bar=barInfo(p,schedule); const local=localClock(now);
   setText("nyTime",`${pad(p.hour)}:${pad(p.minute)}:${pad(p.second)}`); setText("nyZone",p.zone); setText("localTime",local.time); setText("localZone",local.zone); setText("localOffset",local.offset);
@@ -111,7 +134,7 @@ function render(now = new Date()) {
   $$("[data-open-side]").forEach(b=>{b.disabled=false;b.classList.toggle("blocked",!entry.allowed);b.title=entry.allowed?"记录开仓":entry.reason}); setText("entryAvailability",entry.allowed?"交易窗口开放 · 可手动记录":entry.reason); setText("journalAvailability",entry.allowed?"确认交易计划后，手动记录方向。":"点击方向按钮可查看锁定原因。 "+entry.reason);
   setText("tradeCount",state.trades.length); const total=tradeTotal(); setText("totalR",formatR(total)); setText("lossStreak",lossStreak()); setText("cooldown",state.cooldownUntil>now.getTime()?formatDuration((state.cooldownUntil-now.getTime())/1000):"READY");
   $("totalR").style.color=total<0?"var(--red)":total>0?"var(--green)":"var(--text)";
-  renderPosition(now); renderFocus(p,info,bar,now); renderHistory(); renderCalendar(p); renderEvents(p,now);
+  renderPosition(now); renderFocus(p,info,bar,now); renderHistory(); renderCalendar(p); renderEvents(p,now); renderPremarket(p,now);
   setText("journalDate",new Intl.DateTimeFormat("zh-CN",{timeZone:"America/New_York",year:"numeric",month:"long",day:"numeric",weekday:"long"}).format(now));
   document.title=`${formatDuration(bar.left)} · ${info.title} · MES`;
   const barKey=`${state.interval}-${dayKey(p)}-${p.hour}-${Math.floor(p.minute/state.interval)}`;
@@ -153,6 +176,7 @@ function exportData(){const blob=new Blob([JSON.stringify({app:"MES Companion We
 
 function bindEvents(){
   $$('[data-nav]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.nav)));$("brandButton").addEventListener('click',()=>navigate('dashboard'));$("openJournalButton").addEventListener('click',()=>navigate('journal'));$("closePositionButton").addEventListener('click',()=>navigate('journal'));$("focusExit").addEventListener('click',()=>{if(document.fullscreenElement)document.exitFullscreen();navigate('dashboard')});
+  $$('[data-prep]').forEach(box=>box.addEventListener('change',()=>{state.prepChecks[box.dataset.prep]=box.checked;saveState();renderPremarket(nyParts(),new Date());if(box.checked&&Object.values(state.prepChecks).filter(Boolean).length===$$('[data-prep]').length)toast('盘前准备已完成')}));
   $$('[data-open-side]').forEach(b=>b.addEventListener('click',()=>openTrade(b.dataset.openSide)));$$('#intervalPicker button').forEach(b=>b.addEventListener('click',()=>{state.interval=+b.dataset.interval;saveState();$$('#intervalPicker button').forEach(x=>x.classList.toggle('active',x===b));render()}));
   $$('#resultGrid button').forEach(b=>b.addEventListener('click',()=>closeTrade(+b.dataset.result)));$("customMinus").addEventListener('click',()=>{customHalfR=Math.max(-4,customHalfR-1);setText('customResult',formatR(customHalfR))});$("customPlus").addEventListener('click',()=>{customHalfR=Math.min(20,customHalfR+1);setText('customResult',formatR(customHalfR))});$("customConfirm").addEventListener('click',()=>closeTrade(customHalfR));
   $("cancelPositionButton").addEventListener('click',()=>askConfirm('取消未完成交易','这笔交易不会计入今日统计。',()=>{state.openPosition=null;saveState();render();toast('未完成交易已取消')}));$("undoButton").addEventListener('click',()=>{if(!state.trades.length)return toast('没有可撤销的记录');askConfirm('撤销上一笔','上一笔已完成交易将从今日统计中移除。',()=>{state.trades.pop();state.cooldownUntil=0;saveState();render();toast('已撤销上一笔')})});$("resetDayButton").addEventListener('click',()=>askConfirm('重置今天的数据','将删除今天的持仓和全部交易记录，此操作无法撤销。',()=>{state.trades=[];state.openPosition=null;state.cooldownUntil=0;state.oneTradeOverride=false;saveState();render();toast('今日数据已重置')}));
@@ -164,5 +188,5 @@ function bindEvents(){
 }
 function syncSettings(){$("soundToggle").checked=state.sound;$("positionAlertToggle").checked=state.positionAlert;$("positionAlertMinutes").value=state.positionAlertMinutes;$("soundButton").classList.toggle("active",state.sound);setText("soundIcon",state.sound?"♫":"♪");$$('#intervalPicker button').forEach(x=>x.classList.toggle('active',+x.dataset.interval===state.interval))}
 async function loadEventFeed(){try{const response=await fetch(`./data/events.json?v=${Date.now()}`,{cache:"no-store"});if(!response.ok)throw new Error();const data=await response.json();if(!Array.isArray(data.events))throw new Error();eventFeed=data;render()}catch{setText("eventsFreshness","官方日历读取失败 · 显示本地缓存")}}
-function init(){bindEvents();syncSettings();render();loadEventFeed();setInterval(()=>render(),1000);if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+function init(){bindEvents();syncSettings();render();loadEventFeed();const p=nyParts();if(p.hour*60+p.minute>=480&&p.hour*60+p.minute<570)navigate('premarket');setInterval(()=>render(),1000);if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
 init();
