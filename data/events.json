@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-29T09:55:12.756Z",
+  "checkedAt": "2026-10-30T15:53:24.960Z",
   "timeZone": "America/New_York",
   "sources": [
     {
@@ -12,7 +12,7 @@
     {
       "name": "BEA",
       "status": "ok",
-      "count": 9,
+      "count": 7,
       "url": "https://www.bea.gov/news/schedule"
     },
     {
@@ -73,24 +73,6 @@
       "source": "Federal Reserve",
       "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
       "id": "2026-10-28t14:30:00-04:00|fomc-press-conference|federal-reserve"
-    },
-    {
-      "startsAt": "2026-10-29T08:30:00-04:00",
-      "title": "GDP",
-      "titleZh": "国内生产总值 GDP",
-      "impact": "critical",
-      "source": "BEA",
-      "url": "https://www.bea.gov/news/schedule",
-      "id": "2026-10-29t08:30:00-04:00|gdp|bea"
-    },
-    {
-      "startsAt": "2026-10-29T08:30:00-04:00",
-      "title": "Personal Income & Outlays",
-      "titleZh": "个人收入与支出 / PCE",
-      "impact": "critical",
-      "source": "BEA",
-      "url": "https://www.bea.gov/news/schedule",
-      "id": "2026-10-29t08:30:00-04:00|personal-income-outlays|bea"
     },
     {
       "startsAt": "2026-10-30T08:30:00-04:00",
