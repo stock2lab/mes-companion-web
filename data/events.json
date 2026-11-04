@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-03T16:59:53.183Z",
+  "checkedAt": "2026-11-04T17:11:12.354Z",
   "timeZone": "America/New_York",
   "sources": [
     {
@@ -12,7 +12,7 @@
     {
       "name": "BEA",
       "status": "ok",
-      "count": 7,
+      "count": 6,
       "url": "https://www.bea.gov/news/schedule"
     },
     {
@@ -91,15 +91,6 @@
       "source": "BLS fallback",
       "url": "https://www.bls.gov/schedule/2026/11_sched_list.htm",
       "id": "2026-11-03t10:00:00-05:00|jolts|bls-fallback"
-    },
-    {
-      "startsAt": "2026-11-04T08:30:00-05:00",
-      "title": "International Trade",
-      "titleZh": "国际贸易",
-      "impact": "medium",
-      "source": "BEA",
-      "url": "https://www.bea.gov/news/schedule",
-      "id": "2026-11-04t08:30:00-05:00|international-trade|bea"
     },
     {
       "startsAt": "2026-11-06T08:30:00-05:00",
