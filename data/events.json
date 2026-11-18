@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-17T18:31:20.517Z",
+  "checkedAt": "2026-11-18T17:59:53.694Z",
   "timeZone": "America/New_York",
   "sources": [
     {
@@ -29,15 +29,6 @@
     }
   ],
   "events": [
-    {
-      "startsAt": "2026-10-14T08:30:00-04:00",
-      "title": "CPI",
-      "titleZh": "消费者价格指数 CPI",
-      "impact": "critical",
-      "source": "BLS fallback",
-      "url": "https://www.bls.gov/schedule/2026/10_sched_list.htm",
-      "id": "2026-10-14t08:30:00-04:00|cpi|bls-fallback"
-    },
     {
       "startsAt": "2026-10-15T08:30:00-04:00",
       "title": "PPI",
