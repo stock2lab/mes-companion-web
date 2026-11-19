@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-18T17:59:53.694Z",
+  "checkedAt": "2026-11-19T18:13:08.367Z",
   "timeZone": "America/New_York",
   "sources": [
     {
@@ -29,15 +29,6 @@
     }
   ],
   "events": [
-    {
-      "startsAt": "2026-10-15T08:30:00-04:00",
-      "title": "PPI",
-      "titleZh": "生产者价格指数 PPI",
-      "impact": "high",
-      "source": "BLS fallback",
-      "url": "https://www.bls.gov/schedule/2026/10_sched_list.htm",
-      "id": "2026-10-15t08:30:00-04:00|ppi|bls-fallback"
-    },
     {
       "startsAt": "2026-10-16T08:30:00-04:00",
       "title": "Import/Export Prices",
