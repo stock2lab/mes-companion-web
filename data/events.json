@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-24T20:07:35.773Z",
+  "checkedAt": "2026-11-25T19:12:22.996Z",
   "timeZone": "America/New_York",
   "sources": [
     {
@@ -12,7 +12,7 @@
     {
       "name": "BEA",
       "status": "ok",
-      "count": 6,
+      "count": 4,
       "url": "https://www.bea.gov/news/schedule"
     },
     {
@@ -91,24 +91,6 @@
       "source": "BLS fallback",
       "url": "https://www.bls.gov/schedule/2026/11_sched_list.htm",
       "id": "2026-11-13t08:30:00-05:00|ppi|bls-fallback"
-    },
-    {
-      "startsAt": "2026-11-25T08:30:00-05:00",
-      "title": "GDP",
-      "titleZh": "国内生产总值 GDP",
-      "impact": "critical",
-      "source": "BEA",
-      "url": "https://www.bea.gov/news/schedule",
-      "id": "2026-11-25t08:30:00-05:00|gdp|bea"
-    },
-    {
-      "startsAt": "2026-11-25T08:30:00-05:00",
-      "title": "Personal Income & Outlays",
-      "titleZh": "个人收入与支出 / PCE",
-      "impact": "critical",
-      "source": "BEA",
-      "url": "https://www.bea.gov/news/schedule",
-      "id": "2026-11-25t08:30:00-05:00|personal-income-outlays|bea"
     },
     {
       "startsAt": "2026-12-01T10:00:00-05:00",
